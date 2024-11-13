@@ -72,7 +72,7 @@ function TaskHeader({ taskCount, routeName }) {
       <Row className="align-items-center my-3 py-2" style={{ paddingLeft: '250px' }}>
         <Col xs={12} md={6}>
           <h5 className="mb-0">
-          {routeName} Tasks ({taskCount})
+            {routeName} Tasks ({taskCount}) 
           </h5>
         </Col>
         <Col xs={12} md={3} className="text-end d-flex justify-content-end align-items-center">
@@ -81,9 +81,8 @@ function TaskHeader({ taskCount, routeName }) {
         </Col>
       </Row>
       <Row className="align-items-center my-3 py-2" style={{ paddingLeft: '250px' }}>
-      
-         <Col xs={12} md={3} className="ms-auto">
-           <DropdownButton
+        <Col xs={12} md={3} className="ms-auto">
+          <DropdownButton
             variant="outline-secondary"
             title={sortOption}
             onSelect={handleSortSelect}
@@ -100,3 +99,12 @@ function TaskHeader({ taskCount, routeName }) {
 }
 
 export default TaskHeader;
+
+
+
+
+
+
+
+
+

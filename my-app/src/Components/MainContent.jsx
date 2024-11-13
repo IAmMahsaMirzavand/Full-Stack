@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import TaskCard from './TaskCard';
-import TaskList from './TaskList';
-import TaskType from './TaskType';
-import TaskItem from './TaskItem';
 
-function MainContent({ tasks, setTaskCount }) {
-  const location = useLocation();
-  const routeName = location.pathname.replace("/", "").toUpperCase();
+
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import TaskCard from './TaskCard';
+
+
+function MainContent({ tasks, setTaskCount, onToggleImportant, onToggleStatus }) {
+  const location = useLocation(); 
+  // const routeName = location.pathname.replace("/", "").toUpperCase() || "All"; 
+ 
   useEffect(() => {
     const filteredTasks = (() => {
       switch (location.pathname) {
@@ -22,37 +23,26 @@ function MainContent({ tasks, setTaskCount }) {
       }
     })();
 
-    setTaskCount(filteredTasks.length);
-  }, [location, tasks, setTaskCount, routeName]);
+    setTaskCount(filteredTasks.length); 
+  }, [location, tasks, setTaskCount]);
 
   return (
-    <Routes>
-      <Route path="/" element={
-        <div className="d-flex flex-wrap justify-content-around">
-          {tasks.map(task => (
-            <TaskCard
-              key={task.id}
-              title={task.title}
-              description={task.description}
-              date={task.date}
-              status={task.status}
-              isImportant={task.isImportant}
-              type={task.type}
-            />
-          ))}
-        </div>
-      } />
-
-    <Route path="/important" element={<TaskList tasks={tasks} />}/>
-   <Route path="/completed" element={<TaskItem tasks={tasks} filterStatus='completed'/>} />
-   <Route path="/uncompleted" element={<TaskItem tasks={tasks} filterStatus='uncompleted'/>} />
-   <Route path="/directory/:type" element={<TaskType tasks={tasks}/>}/>
-
-    </Routes>
+    <div className="d-flex flex-wrap justify-content-around">
+    
+      {tasks.map(task => (
+        <TaskCard
+          key={task.id}
+          title={task.title}
+          description={task.description}
+          date={task.date}
+          status={task.status}
+          isImportant={task.isImportant}
+          onToggleImportant={() => onToggleImportant(task.id)}  
+          onToggleStatus={() => onToggleStatus(task.id)} 
+        />
+      ))}
+    </div>
   );
 }
 
 export default MainContent;
-
-
-

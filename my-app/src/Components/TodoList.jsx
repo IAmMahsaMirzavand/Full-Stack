@@ -1,5 +1,7 @@
+
+
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useLocation } from "react-router-dom"; 
 import { Col, Container, Row } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import TaskHeader from './TaskHeader';
@@ -13,18 +15,31 @@ export default function TodoList() {
   ]);
 
   const [taskCount, setTaskCount] = useState(tasks.length);
+  
+  
+  const location = useLocation();
+  const routeName = location.pathname.replace("/", "")|| "ALL"; 
+
+  const toggleImportant = (taskId) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === taskId ? { ...task, isImportant: !task.isImportant } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const toggleStatus = (taskId) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === taskId ? { ...task, status: task.status === 'completed' ? 'uncompleted' : 'completed' } : task
+    );
+    setTasks(updatedTasks);
+  };
 
   return (
-    <Router>
+    // <Router>  
       <div style={{ minHeight: '100vh', backgroundColor: '#f4f6f8', overflow: 'hidden' }}>
         <Container fluid style={{ height: '100vh', padding: '15px' }}>
           <Row className="h-100">
-            <Col
-              xs={12}
-              md={2}
-              className="p-0 d-none d-md-block"
-              style={{ height: '100%', backgroundColor: '#f8f9fa', overflowY: 'auto' }}
-            >
+            <Col xs={12} md={2} className="p-0 d-none d-md-block" style={{ height: '100%', overflowY: 'auto' }}>
               <Sidebar />
             </Col>
 
@@ -34,13 +49,18 @@ export default function TodoList() {
 
             <Col xs={12} md={10} className="my-4" style={{ height: '100%', overflowY: 'auto' }}>
               <div style={{ paddingLeft: '25px' }}>
-                <TaskHeader taskCount={taskCount} />
-                <MainContent tasks={tasks} setTaskCount={setTaskCount} />
+                <TaskHeader taskCount={taskCount} routeName={routeName} /> 
+                <MainContent 
+                  tasks={tasks} 
+                  setTaskCount={setTaskCount} 
+                  onToggleImportant={toggleImportant} 
+                  onToggleStatus={toggleStatus} 
+                />
               </div>
             </Col>
           </Row>
         </Container>
       </div>
-    </Router>
+    //  </Router>  
   );
 }

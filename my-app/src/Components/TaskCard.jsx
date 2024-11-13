@@ -1,15 +1,14 @@
-import React from 'react';
 
+
+
+
+import React from 'react';
 import { FaCalendarAlt, FaStar, FaTrash, FaEdit } from 'react-icons/fa';
 import ModalDelete from './Modal';
 
-const TaskCard = ({ title, description, date, status, isImportant, onEdit, onDelete, onToggleImportant }) => {
+const TaskCard = ({ title, description, date, status, isImportant, onEdit, onDelete, onToggleImportant, onToggleStatus }) => {
   return (
-
-    <>
-  
-    <div className="card p-3 mb-4 " style={{ width: '18rem', borderRadius: '10px', position: 'relative', backgroundColor: status === 'completed' ? '#e0f7fa' : '#f3e5f5' }}>
-     
+    <div className="card p-3 mb-4" style={{ width: '18rem', borderRadius: '10px', position: 'relative', backgroundColor: status === 'completed' ? '#e0f7fa' : '#f3e5f5' }}>
       <div style={{
         position: 'absolute',
         top: 0,
@@ -23,7 +22,6 @@ const TaskCard = ({ title, description, date, status, isImportant, onEdit, onDel
         Main
       </div>
 
-     
       <div className="card-body">
         <h5 className="card-title" style={{ color: status === 'completed' ? 'green' : 'purple' }}>{title}</h5>
         <p className="card-text">{description}</p>
@@ -33,17 +31,14 @@ const TaskCard = ({ title, description, date, status, isImportant, onEdit, onDel
         </div>
       </div>
 
-     
       <div className="card-footer d-flex justify-content-between align-items-center">
-        
-       
+        <span
+          className={`badge ${status === 'completed' ? 'bg-success' : 'bg-warning'}`}
+          onClick={onToggleStatus} 
+        >
+          {status}
+        </span>
 
-<span
-  className={`badge ${status === 'completed' ? 'bg-success' : 'bg-warning'}`}
-  onClick={() => onToggleStatus()}
->
-  {status}
-</span>
         <div className="d-flex align-items-center">
           <button onClick={onToggleImportant} className="btn btn-link text-decoration-none p-0 me-2">
             <FaStar className={isImportant ? 'text-warning' : 'text-muted'} />
@@ -57,11 +52,9 @@ const TaskCard = ({ title, description, date, status, isImportant, onEdit, onDel
         </div>
       </div>
     </div>
-    </>
   );
 };
 
 export default TaskCard;
-
 
 

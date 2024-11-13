@@ -3,6 +3,7 @@ import React from 'react';
 
 
 import TodoList from './Components/TodoList';
+import { BrowserRouter as Router } from "react-router-dom"; 
 
 
 const App = () => {
@@ -10,8 +11,11 @@ const App = () => {
     <>
     
    
+     {/* <TodoList/> */}
+     <Router>  
+      
      <TodoList/>
-    
+  </Router>,
    
     </>
   );
