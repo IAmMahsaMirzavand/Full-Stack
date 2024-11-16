@@ -1,27 +1,18 @@
-import React from 'react';
-
-
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import TodoList from './Components/TodoList';
-import { BrowserRouter as Router } from "react-router-dom"; 
 
 
-const App = () => {
+function App() {
   return (
-    <>
-    
-   
-     {/* <TodoList/> */}
-     <Router>  
-      
-     <TodoList/>
-  </Router>,
-   
-    </>
+    <Router>
+      <TodoList />
+    </Router>
   );
-};
+}
 
 export default App;
+
+
 
 
 
